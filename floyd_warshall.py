@@ -2,7 +2,7 @@ import webbrowser
 import data_lists as data
 import csv
 
-
+############DEPRECATED##############################
 nV = 262
 
 INF = 999
