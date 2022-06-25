@@ -1,6 +1,5 @@
 import csv
 
-
 # Main Purpose: This code reads csv files containing the OXXO distances data and creates
 # a new csv file with fuzzy data, merging the data from the morning, afternoon and night periods.
 
@@ -49,39 +48,53 @@ distance_data_afternoon = csv_to_list("2_afternoon")
 distance_data_night = csv_to_list("3_night")
 
 fuzzy_distance_data = []
+fuzzy_mean_distance_data = []
 # fuzzy_morning_distance_data = []
 # fuzzy_afternoon_distance_data = []
 # fuzzy_evening_distance_data = []
 
 
-fuzzy_file = open('data/fuzzy_distance_data.csv', 'w', newline='')
+fuzzy_file_1 = open('data/fuzzy_distance_data.csv', 'w', newline='')
+fuzzy_file_2 = open('data/fuzzy_mean_distance_data.csv', 'w', newline='')
 
-writer = csv.writer(fuzzy_file)
+writer_fuzzy = csv.writer(fuzzy_file_1)
+writer_fuzzy_mean = csv.writer(fuzzy_file_2)
 
 for i in range(number_nodes):
     fuzzy_distance_data_row = []
+    fuzzy_mean_distance_data_row = []
     # fuzzy_morning_distance_data_row = []
     # fuzzy_afternoon_distance_data_row = []
     # fuzzy_evening_distance_data_row = []
     for j in range(number_nodes):
-            
+
         fuzzy_distance_value = distance_data_morning[i][j] + '--' + \
-                                distance_data_afternoon[i][j] + '--' + \
-                                distance_data_night[i][j]
+                               distance_data_afternoon[i][j] + '--' + \
+                               distance_data_night[i][j]
+
+        if i == j:
+            fuzzy_mean_value = 0
+        else:
+            fuzzy_mean_value = (float(distance_data_morning[i][j]) + float(distance_data_afternoon[i][j]) +
+                            float(distance_data_night[i][j]))/3
+            fuzzy_mean_value = round(fuzzy_mean_value, 2)
 
         # time_morning = time_select(time_morning)
         # time_afternoon = time_select(time_afternoon)
         # time_evening = time_select(time_evening)
         try:
             fuzzy_distance_data_row.append(fuzzy_distance_value)
+            fuzzy_mean_distance_data_row.append(fuzzy_mean_value)
         except "INVALID DATA":
             print("Fuzzyfication failed")
 
     fuzzy_distance_data.append(fuzzy_distance_data_row)
+    fuzzy_mean_distance_data.append(fuzzy_mean_distance_data_row)
 
-    writer.writerow(fuzzy_distance_data_row)
+    writer_fuzzy.writerow(fuzzy_distance_data_row)
+    writer_fuzzy_mean.writerow(fuzzy_mean_distance_data_row)
 
-fuzzy_file.close()
+fuzzy_file_1.close()
+fuzzy_file_2.close()
 
-print(fuzzy_distance_data)
-
+# print(fuzzy_distance_data)

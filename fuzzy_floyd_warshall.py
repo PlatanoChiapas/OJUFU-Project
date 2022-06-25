@@ -3,24 +3,27 @@ import data_lists as data
 import csv
 import data_fuzzyfication as fuzzy_data
 
-
 nV = 25
 
 INF = 999
 
-# f = open('c://Users/alani/Documents/Maestria/2_semestre/investigacion_operaciones/Oxxo/floyd_warshall_solution.csv', 'w', newline='')
-f_morning = open('fuzzy_morning_floyd_warshall_solution.csv', 'w', newline='')
-f_afternoon = open('fuzzy_afternoon_floyd_warshall_solution.csv', 'w', newline='')
-f_evening = open('fuzzy_evening_floyd_warshall_solution.csv', 'w', newline='')
+# f = open('c://Users/alani/Documents/Maestria/2_semestre/investigacion_operaciones/Oxxo/floyd_warshall_solution.csv
+# ', 'w', newline='')
+# f_morning = open('fuzzy_morning_floyd_warshall_solution.csv', 'w', newline='')
+# f_afternoon = open('fuzzy_afternoon_floyd_warshall_solution.csv', 'w', newline='')
+# f_evening = open('fuzzy_evening_floyd_warshall_solution.csv', 'w', newline='')
+fuzzy_file = open('fuzzy_floyd_warshall_solution.csv', 'w', newline='')
 
-writer_morning = csv.writer(f_morning)
-writer_afternoon = csv.writer(f_afternoon)
-writer_evening = csv.writer(f_evening)
+# writer_morning = csv.writer(f_morning)
+# writer_afternoon = csv.writer(f_afternoon)
+# writer_evening = csv.writer(f_evening)
+writer_fuzzy = csv.writer(fuzzy_file)
+
 
 # Algorithm implementation
 
 
-def print_solution(distance, day_phase, fw_row):
+def print_solution(distance, fw_row):
     fw = []
 
     for i in range(nV):
@@ -33,28 +36,28 @@ def print_solution(distance, day_phase, fw_row):
                 # print(distance[i][j], end="  ")
                 fw_row.append(distance[i][j])
 
-        if day_phase == 'm':
-            writer_morning.writerow(fw_row)
-            fw.append(fw_row)
-        elif day_phase == 'a':
-            writer_afternoon.writerow(fw_row)
-            fw.append(fw_row)
-        elif day_phase == 'e':
-            writer_evening.writerow(fw_row)
-            fw.append(fw_row)
-
-    if day_phase == 'm':
-        f_morning.close()
-    if day_phase == 'a':
-        f_afternoon.close()
-    if day_phase == 'e':
-        f_evening.close()
+        writer_fuzzy.writerow(fw_row)
+        # if day_phase == 'm':
+        # writer_morning.writerow(fw_row)
+        # fw.append(fw_row)
+        # elif day_phase == 'a':
+        # writer_afternoon.writerow(fw_row)
+        # fw.append(fw_row)
+        # elif day_phase == 'e':
+        # writer_evening.writerow(fw_row)
+        # fw.append(fw_row)
+    fuzzy_file.close()
+    # if day_phase == 'm':
+    # f_morning.close()
+    # if day_phase == 'a':
+    # f_afternoon.close()
+    # if day_phase == 'e':
+    # f_evening.close()
     print('first_solution', fw)
     return fw
 
 
 def floyd_warshall(g, day_phase, fw_row):
-
     distance = list(map(lambda i: list(map(lambda j: j, i)), g))
 
     # Adding vertices individually
@@ -62,7 +65,7 @@ def floyd_warshall(g, day_phase, fw_row):
         for i in range(nV):
             for j in range(nV):
                 distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
-    fw = print_solution(distance, day_phase, fw_row)
+    fw = print_solution(distance, fw_row)
 
     return fw
 
@@ -118,7 +121,7 @@ def map_route_generator(fw):
             n = 0
             url = ''
 
-    #print(path_data[0])
+    # print(path_data[0])
     # webbrowser.open(path_data[0])
 
 
