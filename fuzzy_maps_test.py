@@ -1,4 +1,5 @@
-import fuzzy_floyd_warshall as fwt
+#import fuzzy_floyd_warshall as fwt
+import floyd_warshall_test as fwt
 import webbrowser
 
 
@@ -58,11 +59,12 @@ def optimal_map_path(fw):
             # print(url_head+url)
             n = 0
             url = ''
+    for n_path in range(len(optimal_path)):
 
-    print('Optimal path: ', optimal_path[0])
+        print('Optimal path ' + str(n_path) + ': ', optimal_path[n_path])
     #webbrowser.open(optimal_path[0])
 
 
-optimal_map_path(fwt.fw_morning)
-optimal_map_path(fwt.fw_afternoon)
-optimal_map_path(fwt.fw_evening)
+optimal_map_path(fwt.fw)
+#optimal_map_path(fwt.fw_afternoon)
+#optimal_map_path(fwt.fw_evening)

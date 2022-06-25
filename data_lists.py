@@ -1,6 +1,6 @@
 import webbrowser
 
-file_coord = open("oxxo_coordinates.csv", 'r')
+file_coord = open("data/csv_data/oxxo_coordinates.csv", 'r')
 
 coord_list = file_coord.read()
 
@@ -13,7 +13,7 @@ for line in coord_list:
     line = line.strip('"')
     coordinates.append(line)
 
-file = open("distance_values.csv", 'r')
+file = open("data/fuzzy_mean_distance_data.csv", 'r')
 
 distances = file.read()
 
